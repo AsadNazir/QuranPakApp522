@@ -10,10 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
-
 public class SurahPage extends AppCompatActivity {
 
     TextView AyatsView;
@@ -28,7 +24,7 @@ public class SurahPage extends AppCompatActivity {
         SurahName = findViewById(R.id.SurahName);
         Search = findViewById(R.id.button);
         edx = findViewById(R.id.editTextNumber);
-        Cancel = findViewById(R.id.button2);
+        Cancel = findViewById(R.id.button3);
 
 
         AyatsView.setText("");
@@ -44,7 +40,7 @@ public class SurahPage extends AppCompatActivity {
 
 
             SurahName.setText(QDHObject.urduSurahNames[surahIndex]);
-            String[] Ayat = Arabic.GetData(QDHObject.SSP[surahIndex]-1,QDHObject.surahAyatCount[surahIndex]+QDHObject.SSP[surahIndex]);
+            String[] Ayat = Arabic.GetData(QDHObject.getSurahStart(surahIndex)-1,QDHObject.getSurahStart(surahIndex)+ QDHObject.getSurahVerses(surahIndex));
             String tmp = "";
 
             for (int i = 0; i <Ayat.length; i++) {
@@ -76,6 +72,7 @@ public class SurahPage extends AppCompatActivity {
                         int count = Integer.parseInt(edx.getText().toString());
 
                         if (count == 0) return;
+                        if(count>QDHObject.getSurahVerses(surahIndex)) return;
 
                         AyatsView.setText(Arabic.QuranArabicText[QDHObject.SSP[surahIndex] + count - 1]);
                     }
