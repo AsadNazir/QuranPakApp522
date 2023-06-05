@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < UrduSurahNames.length; i++) {
             QATArrayList.add(i+1 + "-\t\t\t\t" + QDHObject.englishSurahNames[i] + "\t\t\t\t"  + UrduSurahNames[i]);
 
-
         }
 
         //Setting the array adapter
@@ -51,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         SurahListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Intent I = new Intent(MainActivity.this,SurahPage.class);
+                I.putExtra("surahIndex", i);
+                startActivity(I);
             }
         });
 
