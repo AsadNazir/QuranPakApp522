@@ -3,9 +3,7 @@ package com.example.quranpakapp522;
 import java.util.ArrayList;
 import java.util.*;
 
-/**
- * Created by Haq Nawaz on 1/25/2016.
- */
+
 public class QuranArabicText {
     public String[] QuranArabicText = new String[]
             {

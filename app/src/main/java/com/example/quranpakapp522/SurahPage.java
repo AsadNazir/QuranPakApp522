@@ -18,7 +18,7 @@ public class SurahPage extends AppCompatActivity {
 
     TextView AyatsView;
     TextView SurahName;
-    Button Search;
+    Button Search, Cancel;
     EditText edx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class SurahPage extends AppCompatActivity {
         SurahName = findViewById(R.id.SurahName);
         Search = findViewById(R.id.button);
         edx = findViewById(R.id.editTextNumber);
+        Cancel = findViewById(R.id.button2);
 
 
         AyatsView.setText("");
@@ -43,10 +44,10 @@ public class SurahPage extends AppCompatActivity {
 
 
             SurahName.setText(QDHObject.urduSurahNames[surahIndex]);
-            String[] Ayat = Arabic.GetData(QDHObject.SSP[surahIndex],QDHObject.surahAyatCount[surahIndex]+QDHObject.SSP[surahIndex]);
+            String[] Ayat = Arabic.GetData(QDHObject.SSP[surahIndex]-1,QDHObject.surahAyatCount[surahIndex]+QDHObject.SSP[surahIndex]);
             String tmp = "";
 
-            for (int i = 0; i <Ayat.length-1; i++) {
+            for (int i = 0; i <Ayat.length; i++) {
                 tmp+=Ayat[i];
             }
 
@@ -54,15 +55,35 @@ public class SurahPage extends AppCompatActivity {
 
 
 
+            Cancel.setOnClickListener(new View.OnClickListener() {
+                String tmp = "";
+                @Override
+                public void onClick(View view) {
+                    for (int i = 0; i <Ayat.length; i++) {
+                        tmp+=Ayat[i];
+                        edx.setText("");
+                    }
 
+                    AyatsView.setText(tmp);
+                }
+            });
             Search.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int count=Integer.parseInt(edx.getText().toString());
+                    try {
 
-                    if(count==0) return;
 
-                    AyatsView.setText(Arabic.QuranArabicText[QDHObject.SSP[surahIndex]+count]);
+                        int count = Integer.parseInt(edx.getText().toString());
+
+                        if (count == 0) return;
+
+                        AyatsView.setText(Arabic.QuranArabicText[QDHObject.SSP[surahIndex] + count - 1]);
+                    }
+                    catch (Exception E)
+                    {
+                        Toast.makeText(SurahPage.this, "Please Enter Something", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 }
             });
 
